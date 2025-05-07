@@ -11,7 +11,18 @@ This project simulates concurrent API requests, handles data processing, and dem
 ## Key Folders
 
 ### calculations 
-has files for calculations like processor.go (for calculation of data for company and api), initial_data.go (for initial data for each company) and other helper functions
+has files for calculations like 
+#### processor.go 
+Main Calculation file for the endpoints
+#### initial_data.go 
+Calculates initial data for each company
+#### Other helper functions
+- cache_utils.go -> stores the cache for both initial data and processor (reusable, takes the cache map as the input for storing cache for both
+inital data (company - key) and processor data (company:api will be the key)
+
+- concurrency_util.go -> Used for waiting requests while same request is calculation the initial data or the processor data
+
+- data-type.go -> contains the data strutures used across the calculations folder
 
 ### handlers
 Consist of Handler functions for each endpoint
