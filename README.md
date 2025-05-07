@@ -3,18 +3,18 @@
 ## Description
 This project simulates concurrent API requests, handles data processing, and demonstrates caching mechanisms using Go.
 
-### Key Features:
+## Key Features:
 - Concurrent API calls handling using Go routines
 - Caching of initial and processed data
 - Basic API server with multiple endpoints
 
-### Key Files
+## Key Folders
 
 ### calculations 
 has files for calculations like processor.go (for calculation of data for company and api), initial_data.go (for initial data for each company) and other helper functions
 
 ### handlers
-Consist of Handler functiosn for each endpoint
+Consist of Handler functions for each endpoint
 
 ### main.go 
 starting point of the application
