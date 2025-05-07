@@ -10,16 +10,16 @@ This project simulates concurrent API requests, handles data processing, and dem
 
 ### Key Files
 
-# calculations 
+### calculations 
 has files for calculations like processor.go (for calculation of data for company and api), initial_data.go (for initial data for each company) and other helper functions
 
-# handlers
+### handlers
 Consist of Handler functiosn for each endpoint
 
-# main.go 
+### main.go 
 starting point of the application
 
-# test.go 
+### test.go 
 Testing the main server with some api calls as per the given agenda of the challenge
 
 ## Prerequisites
