@@ -8,6 +8,10 @@ This project simulates concurrent API requests, handles data processing, and dem
 - Caching of initial and processed data
 - Basic API server with multiple endpoints
 
+## Flow diagram
+
+![image](https://github.com/user-attachments/assets/91ebc996-5ddc-4e4d-b9cf-8543d0446ea0)
+
 ## Key Folders
 
 ### calculations 
