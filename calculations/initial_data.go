@@ -13,6 +13,7 @@ func CalculateInitialData(companyId string) int {
 	}
 
 	if data, found := waitForConcurrentRequest(companyId, initialDataPending, "initial data"); found {
+		fmt.Println(companyId, " ", data)
 		return data
 	}
 
@@ -21,10 +22,9 @@ func CalculateInitialData(companyId string) int {
 }
 
 func startInitialDataCalculation(companyId string) int {
-	waitCh := make(chan int, 1)
 
 	mu.Lock()
-	initialDataPending[companyId] = &PendingRequest{waitCh: waitCh}
+	initialDataPending[companyId] = &PendingRequest{waitCh: []chan int{}}
 	mu.Unlock()
 
 	fmt.Printf("\ncalculating initial data for company: %s\n", companyId)
@@ -32,7 +32,7 @@ func startInitialDataCalculation(companyId string) int {
 
 	id, err := strconv.Atoi(companyId)
 	if err != nil {
-		fmt.Printf("invalid companyId: %v\n", err)
+		fmt.Printf("invalid company id: %v\n", err)
 		return 0
 	}
 
@@ -40,10 +40,14 @@ func startInitialDataCalculation(companyId string) int {
 
 	mu.Lock()
 	initialDataCache[companyId] = data
+	waitChs := initialDataPending[companyId].waitCh
 	delete(initialDataPending, companyId)
 	mu.Unlock()
 
-	waitCh <- data
-	close(waitCh)
+	for _, ch := range waitChs {
+		ch <- data
+		close(ch)
+	}
+
 	return data
 }

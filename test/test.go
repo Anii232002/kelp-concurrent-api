@@ -22,8 +22,8 @@ func main() {
 		{"123", "/api/sales/data", 100 * time.Millisecond},
 		{"123", "/api/employee", 0 * time.Millisecond},
 		{"123", "/api/financials/data", 5 * time.Second},
-		{"131", "/api/sales/data", 0 * time.Millisecond},
-		{"131", "/api/sales/data", 5 * time.Second},
+		{"331", "/api/sales/data", 0 * time.Millisecond},
+		{"331", "/api/sales/data", 5 * time.Second},
 	}
 
 	for _, req := range requests {

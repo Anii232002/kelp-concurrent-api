@@ -8,8 +8,12 @@ func waitForConcurrentRequest(key string, pendingList map[string]*PendingRequest
 	mu.Unlock()
 
 	if exists {
+		ch := make(chan int, 1)
+		mu.Lock()
+		pending.waitCh = append(pending.waitCh, ch)
+		mu.Unlock()
 		fmt.Printf("\nwaiting for other process to calculate %s for %s\n", label, key)
-		return <-pending.waitCh, true
+		return <-ch, true
 	}
 	return 0, false
 }

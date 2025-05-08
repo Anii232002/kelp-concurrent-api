@@ -3,7 +3,7 @@ package calculations
 import "sync"
 
 type PendingRequest struct {
-	waitCh chan int
+	waitCh []chan int
 }
 
 var (

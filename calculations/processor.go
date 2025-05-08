@@ -23,10 +23,9 @@ func ProcessRequest(companyId string, apiName string) int {
 
 func startProcessingRequest(key string, companyId string, apiName string) int {
 
-	waitCh := make(chan int, 1)
 	mu.Lock()
 	pendingRequests[key] = &PendingRequest{
-		waitCh: waitCh,
+		waitCh: []chan int{},
 	}
 	mu.Unlock()
 
@@ -39,12 +38,16 @@ func startProcessingRequest(key string, companyId string, apiName string) int {
 	randomNumber := rand.Intn(100)
 	result := initialData*randomNumber + 1000
 
-	waitCh <- result
+	waitCh := pendingRequests[key].waitCh
 	mu.Lock()
 	apiResultCache[key] = result
 	delete(pendingRequests, key)
 	mu.Unlock()
 
-	close(waitCh)
+	for _, ch := range waitCh {
+		ch <- result
+		close(ch)
+	}
+
 	return result
 }
